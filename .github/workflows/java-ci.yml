@@ -1,0 +1,25 @@
+name: Java CI with Maven
+
+# هذا يحدد متى سيتم تشغيل الـ Action
+on:
+  push:
+    branches: [ "master" ]   # أو "main" حسب اسم فرعك
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest   # تشغيل على جهاز افتراضي Linux
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # يجلب الكود من GitHub
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'       # نسخة Java التي تريد استخدامها
+          distribution: 'temurin'  # التوزيع (Temurin = OpenJDK)
+
+      - name: Build and Test
+        run: mvn test             # تشغيل اختبارات Maven (JUnit + Selenium)
